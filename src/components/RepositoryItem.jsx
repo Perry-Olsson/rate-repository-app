@@ -9,13 +9,11 @@ import theme from './theme';
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    height: 150,
     backgroundColor: theme.colors.repositoryBackground,
-    padding: 5,
+    padding: 8,
   },
   primaryInfo: {
     flexDirection: 'row',
-    flexGrow: 1,
   },
   imageContainer: {
     paddingTop: 10,
@@ -33,7 +31,6 @@ const styles = StyleSheet.create({
   },
   secondaryInfo: {
     flexDirection: 'row',
-    flexGrow: 1,
   }, 
   languageContainer: {
     flexDirection: 'row',
