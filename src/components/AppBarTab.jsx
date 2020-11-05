@@ -5,13 +5,13 @@ import { Link } from 'react-router-native';
 //styles
 import theme from './theme';
 
-const windowWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width - 6;
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
-    width: windowWidth / 3 - 2,
+    width: windowWidth / 3,
     paddingBottom: 10,
   },
   tab: {
