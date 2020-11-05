@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
+import { View, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
 import { Link } from 'react-router-native';
 
 //styles
 import theme from './theme';
+import Text from './Text';
 
 const windowWidth = Dimensions.get('window').width - 6;
 

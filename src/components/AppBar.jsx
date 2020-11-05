@@ -11,7 +11,7 @@ import theme from './theme';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: Constants.statusBarHeight + 6,
     paddingLeft: 3,
     paddingRight: 3,
     backgroundColor: theme.colors.appBar,
