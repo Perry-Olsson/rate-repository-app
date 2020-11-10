@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     width: windowWidth / 3,
+    paddingTop: 10,
     paddingBottom: 10,
   },
   tab: {
