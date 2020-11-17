@@ -65,10 +65,10 @@ const RepositoryItem = ({ repository }) => {
         </View>
       </View>
       <View style={styles.secondaryInfo}>
-          <RepositoryStat text="Stars" count={repository.stargazersCount} />
-          <RepositoryStat text="Forks" count={repository.forksCount} />
-          <RepositoryStat text="Reviews" count={repository.reviewCount} />
-          <RepositoryStat text="Rating" count={repository.ratingAverage} />
+        <RepositoryStat text="Stars" count={repository.stargazersCount} />
+        <RepositoryStat text="Forks" count={repository.forksCount} />
+        <RepositoryStat text="Reviews" count={repository.reviewCount} />
+        <RepositoryStat text="Rating" count={repository.ratingAverage} />
       </View>
     </View>
   );

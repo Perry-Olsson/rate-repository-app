@@ -30,9 +30,9 @@ const AppBarTab = ({ name, path }) => {
   return (
     <Link style={styles.link} to={path}>
       <View style={styles.container} component={TouchableHighlight}>
-          <Text style={styles.tab}>
-            {name}
-          </Text> 
+        <Text style={styles.tab}>
+          {name}
+        </Text> 
       </View>
     </Link>
   );

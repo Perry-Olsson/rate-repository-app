@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
 
 const SignInForm = ({ onSubmit }) => {
   return (
-  <View style={styles.container}>
-    <FormikTextInput name='username' placeholder='Username' />
-    <FormikTextInput name='password' placeholder='Password' secureTextEntry />
-    <TouchableWithoutFeedback onPress={onSubmit}>
-      <Text style={styles.submit}>Sign in</Text>
-    </TouchableWithoutFeedback>
-  </View>
+    <View style={styles.container}>
+      <FormikTextInput name='username' placeholder='Username' />
+      <FormikTextInput name='password' placeholder='Password' secureTextEntry />
+      <TouchableWithoutFeedback onPress={onSubmit}>
+        <Text style={styles.submit}>Sign in</Text>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };
 
