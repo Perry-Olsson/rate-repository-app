@@ -1,12 +1,12 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-
 //components
 import SignInForm from './SignInForm';
-
 //hooks
 import useSignIn from '../hooks/useSignIn';
+//utils
+import AuthStorage from '../utils/AuthStorage';
 
 const initialValues = {
   username: '',
@@ -23,10 +23,11 @@ const SignIn = () => {
 
   const onSubmit = async values => {
     const { username, password } = values;
+    const authorization = new AuthStorage();
 
     try {
       const { data } = await signIn({ username, password});
-      console.log(data);
+      await authorization.setAccessToken(data.authorize.accessToken);
     } catch(e) {
       console.log(e);
     }

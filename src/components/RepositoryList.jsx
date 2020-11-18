@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, Text } from 'react-native';
 
 //components
 import RepositoryItem from './RepositoryItem';
@@ -16,20 +16,22 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const { repositories, error } = useRepositories();
 
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
 
-  return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <RepositoryItem repository={item} />}
-      keyExtractor={(item, index) => index.toString()}
-    />
-  );
+  return error 
+    ? <Text>Could not fetch repositories</Text>
+    : (
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => <RepositoryItem repository={item} />}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    );
 };
 
 export default RepositoryList;
