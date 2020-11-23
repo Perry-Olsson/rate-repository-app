@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const AppBarTab = ({ name, path }) => {
+const AppBarTab = ({ name, path, ...props }) => {
   return (
-    <Link style={styles.link} to={path}>
-      <View style={styles.container} component={TouchableHighlight}>
+    <Link to={path} component={TouchableHighlight} style={styles.link} {...props}>
+      <View style={styles.container} >
         <Text style={styles.tab}>
           {name}
         </Text> 
