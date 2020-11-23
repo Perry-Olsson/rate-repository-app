@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const signOut = useSignOut();
   const query = useQuery(AUTHORIZED_USER, {
     fetchPolicy: 'cache-and-network'
   });
@@ -29,18 +30,17 @@ const AppBar = () => {
       <ScrollView horizontal>
         <AppBarTab name="Repositories" path='/' />
         {!query.loading && 
-        getSignInSignOutTab(query)}
+        getSignInSignOutTab(query, signOut)}
       </ScrollView>
     </View>
   );
 };
 
-const getSignInSignOutTab = (query) => {
-  const signOut = useSignOut();
-  return isSignedIn(query) 
+const getSignInSignOutTab = (query, signOut) => (
+  isSignedIn(query) 
     ? <AppBarTab name="Sign out" path='/' onPress={signOut} /> 
-    : <AppBarTab name="Sign in" path='/signin' />;
-};
+    : <AppBarTab name="Sign in" path='/signin' />
+);
 
 
 const isSignedIn = ({ data, error }) => {
