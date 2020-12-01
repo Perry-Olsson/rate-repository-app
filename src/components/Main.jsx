@@ -2,22 +2,9 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Route, Switch, Redirect } from 'react-router-native';
 
-//components
 import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 import SignIn from './SignIn';
-
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    flexShrink: 1,
-  },
-  title: {
-    fontSize: 30,
-    marginBottom: 15,
-  }
-});
 
 const Main = () => {
   return (
@@ -35,5 +22,16 @@ const Main = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    flexShrink: 1,
+  },
+  title: {
+    fontSize: 30,
+    marginBottom: 15,
+  }
+});
 
 export default Main;
