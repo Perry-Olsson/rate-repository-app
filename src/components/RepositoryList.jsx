@@ -9,25 +9,25 @@ const RepositoryList = () => {
 
   return (
     <RepositoryListContainer repositories={repositories} error={error} />
-  )
+  );
 };
 
 export const RepositoryListContainer = ({ repositories, error }) => {
   const repositoryNodes = repositories
-  ? repositories.edges.map(edge => edge.node)
-  : [];
+    ? repositories.edges.map(edge => edge.node)
+    : [];
 
   return error 
-  ? <Text>Could not fetch repositories</Text>
-  : (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <RepositoryItem repository={item} />}
-      keyExtractor={(item, index) => index.toString()}
-    />
-  );
-}
+    ? <Text>Could not fetch repositories</Text>
+    : (
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => <RepositoryItem repository={item} />}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    );
+};
 
 const ItemSeparator = () => <View style={styles.separator} />;
 

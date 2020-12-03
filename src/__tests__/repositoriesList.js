@@ -49,8 +49,9 @@ describe('RepositoryList', () => {
         };
   
         // Add your test code here
-        const { debug, getAllByTestId } = render(<RepositoryListContainer repositories={repositories} />)
+        const { getAllByTestId } = render(<RepositoryListContainer repositories={repositories} />)
         const repositoryNames = getAllByTestId('repositoryFullName');
+
         expect(repositoryNames[0]).toHaveTextContent('jaredpalmer/formik')
         expect(repositoryNames[1]).toHaveTextContent('async-library/react-async')
       });
