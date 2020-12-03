@@ -16,7 +16,6 @@ export const RepositoryListContainer = ({ repositories, error }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
-
   return error 
     ? <Text>Could not fetch repositories</Text>
     : (
