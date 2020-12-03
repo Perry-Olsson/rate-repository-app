@@ -6,6 +6,34 @@ import Text from './Text';
 import RepositoryStat from './RepositoryStat';
 import theme from './theme';
 
+const RepositoryItem = ({ repository }) => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.primaryInfo}>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={{ uri: repository.ownerAvatarUrl }}
+          />
+        </View>
+        <View style={styles.descriptionContainer}>
+          <Text fontWeight='bold' testID='repositoryFullName'>{repository.fullName}</Text>
+          <Text>{repository.description}</Text>
+          <View style={styles.languageContainer}>
+            <Text style={styles.language}>{repository.language}</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.secondaryInfo}>
+        <RepositoryStat text="Stars" count={repository.stargazersCount} />
+        <RepositoryStat text="Forks" count={repository.forksCount} />
+        <RepositoryStat text="Reviews" count={repository.reviewCount} />
+        <RepositoryStat text="Rating" count={repository.ratingAverage} />
+      </View>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
@@ -45,33 +73,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#457ad6'
   }
 });
-
-const RepositoryItem = ({ repository }) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.primaryInfo}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={{ uri: repository.ownerAvatarUrl }}
-          />
-        </View>
-        <View style={styles.descriptionContainer}>
-          <Text fontWeight='bold'>{repository.fullName}</Text>
-          <Text>{repository.description}</Text>
-          <View style={styles.languageContainer}>
-            <Text style={styles.language}>{repository.language}</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.secondaryInfo}>
-        <RepositoryStat text="Stars" count={repository.stargazersCount} />
-        <RepositoryStat text="Forks" count={repository.forksCount} />
-        <RepositoryStat text="Reviews" count={repository.reviewCount} />
-        <RepositoryStat text="Rating" count={repository.ratingAverage} />
-      </View>
-    </View>
-  );
-};
 
 export default RepositoryItem;
