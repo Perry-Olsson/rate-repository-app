@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     padding: 5,
-    borderRadius: 3,
+    borderRadius: 4,
     color: '#ffffff',
     backgroundColor: '#457ad6'
   }
@@ -65,10 +65,10 @@ const RepositoryItem = ({ repository }) => {
         </View>
       </View>
       <View style={styles.secondaryInfo}>
-          <RepositoryStat text="Stars" count={repository.stargazersCount} />
-          <RepositoryStat text="Forks" count={repository.forksCount} />
-          <RepositoryStat text="Reviews" count={repository.reviewCount} />
-          <RepositoryStat text="Rating" count={repository.ratingAverage} />
+        <RepositoryStat text="Stars" count={repository.stargazersCount} />
+        <RepositoryStat text="Forks" count={repository.forksCount} />
+        <RepositoryStat text="Reviews" count={repository.reviewCount} />
+        <RepositoryStat text="Rating" count={repository.ratingAverage} />
       </View>
     </View>
   );

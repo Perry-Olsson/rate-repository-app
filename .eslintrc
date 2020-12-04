@@ -1,6 +1,7 @@
 {
   "plugins": [
-    "react"
+    "react",
+    "jest"
   ],
   "settings": {
     "react": {
@@ -9,7 +10,8 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:jest/recommended"
   ],
   "parser": "babel-eslint",
   "env": {
@@ -18,6 +20,10 @@
   },
   "rules": {
     "react/prop-types": "off",
-    "semi": "error"
+    "semi": "error",
+    "indent": [
+      "error",
+      2
+    ]
   }
 }

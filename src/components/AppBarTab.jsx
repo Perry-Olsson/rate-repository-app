@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
+import { View, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
 import { Link } from 'react-router-native';
 
 //styles
 import theme from './theme';
+import Text from './Text';
 
 const windowWidth = Dimensions.get('window').width - 6;
 
@@ -12,6 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     width: windowWidth / 3,
+    paddingTop: 10,
     paddingBottom: 10,
   },
   tab: {
@@ -24,13 +26,13 @@ const styles = StyleSheet.create({
   }
 });
 
-const AppBarTab = ({ name, path }) => {
+const AppBarTab = ({ name, path, ...props }) => {
   return (
-    <Link style={styles.link} to={path}>
-      <View style={styles.container} component={TouchableHighlight}>
-          <Text style={styles.tab}>
-            {name}
-          </Text> 
+    <Link to={path} component={TouchableHighlight} style={styles.link} {...props}>
+      <View style={styles.container} >
+        <Text style={styles.tab}>
+          {name}
+        </Text> 
       </View>
     </Link>
   );
