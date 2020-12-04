@@ -1,48 +1,47 @@
 import React from 'react';
-import { TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
+import * as yup from 'yup';
+import { useHistory } from 'react-router-native';
 
-import Text from './Text';
-import FormikTextInput from './FormikTextInput';
+import SignInForm from './SignInForm';
+import useSignIn from '../hooks/useSignIn';
 
-const styles = StyleSheet.create({
-  submit: {
-    borderRadius: 4,
-    margin: 10,
-    padding: 10,
-    color: '#ffffff',
-    fontSize: 20,
-    textAlign: 'center',
-    backgroundColor: '#006cf0'
-  }
-});
+const SignIn = () => { 
+  const [signIn] = useSignIn();
+  const history = useHistory();
 
-const initialValues = {
-  username: '',
-};
+  const onSubmit = async (values, { resetForm }) => {
+    const { username, password } = values;
 
-const SignInForm = ({ onSubmit }) => {
+    try {
+      await signIn({ username, password });
+      resetForm();
+      history.push('/');
+    } catch(e) {
+      console.log(e);
+    }
+  };
+  
   return (
-  <>
-    <FormikTextInput name='username' placeholder='Username' />
-    <FormikTextInput name='password' placeholder='Password' secureTextEntry />
-    <TouchableWithoutFeedback onPress={onSubmit}>
-      <Text style={styles.submit}>Sign in</Text>
-    </TouchableWithoutFeedback>
-  </>
+    <SignInContainer onSubmit={onSubmit} />
   );
 };
 
-const SignIn = () => { 
-  const onSubmit = values => {
-    console.log(values);
-  };
-
+export const SignInContainer = ({ onSubmit }) => {
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} /> }
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+      { ({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} /> } 
     </Formik>
   );
 };
+
+const initialValues = {
+  username: '',
+  password: '',
+};
+const validationSchema = yup.object().shape({
+  username: yup.string().required('Username is required'),
+  password: yup.string().required('Password is required')
+});
 
 export default SignIn;
