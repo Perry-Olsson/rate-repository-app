@@ -3,12 +3,16 @@ import { Text } from 'react-native';
 import { useParams } from 'react-router-native';
 
 import RepositoryItem from './RepositoryItem';
+import useRepository from '../hooks/useRepository';
 
-const RepositoryPage = ({ repository }) => {
+const RepositoryPage = () => {
   const { id }= useParams();
+  const { repository, loading } = useRepository(id);
+  
+  if (loading) return <Text>loading...</Text>;
 
   return (
-    <Text>{id}</Text>
+    <RepositoryItem repository={repository} />
   );
 };
 
