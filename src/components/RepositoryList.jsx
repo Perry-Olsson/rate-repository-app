@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View, StyleSheet, Text } from 'react-native';
 
-import RepositoryItem from './RepositoryItem';
+import { TouchableRepositoryItem } from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 
 const RepositoryList = () => {
@@ -22,7 +22,7 @@ export const RepositoryListContainer = ({ repositories, error }) => {
       <FlatList
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
-        renderItem={({ item }) => <RepositoryItem repository={item} />}
+        renderItem={({ item }) => <TouchableRepositoryItem repository={item} />}
         keyExtractor={(item, index) => index.toString()}
       />
     );
