@@ -20,7 +20,9 @@ const RepositoryItem = ({ repository }) => {
           <Text fontWeight='bold' testID='repositoryFullName'>{repository.fullName}</Text>
           <Text>{repository.description}</Text>
           <View style={styles.languageContainer}>
-            <Text style={styles.language}>{repository.language}</Text>
+            <View style={styles.languageBorder}>
+              <Text style={styles.language}>{repository.language}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -78,13 +80,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
-  language: {
+  languageBorder: {
     marginTop: 5,
     marginBottom: 5,
-    padding: 5,
     borderRadius: 4,
+    backgroundColor: '#457ad6',
+  },
+  language: {
+    padding: 5,
     color: '#ffffff',
-    backgroundColor: '#457ad6'
   }
 });
 
