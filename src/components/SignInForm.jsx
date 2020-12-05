@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, TouchableHighlight, StyleSheet } from 'react-native';
 
 //components
 import FormikTextInput from './FormikTextInput';
@@ -18,9 +18,9 @@ const SignInForm = ({ onSubmit }) => {
         placeholder='Password' 
         secureTextEntry
         testID='passwordField' />
-      <TouchableWithoutFeedback onPress={onSubmit} testID='submitButton' >
+      <TouchableHighlight style={styles.submitContainer} onPress={onSubmit} testID='submitButton' >
         <Text style={styles.submit}>Sign in</Text>
-      </TouchableWithoutFeedback>
+      </TouchableHighlight>
     </View>
   );
 };
@@ -29,13 +29,15 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
   },
-  submit: {
+  submitContainer: {
+    backgroundColor: '#006cf0',
     borderRadius: 4,
+  },
+  submit: {
     padding: 10,
     color: '#ffffff',
     fontSize: 20,
     textAlign: 'center',
-    backgroundColor: '#006cf0'
   }
 });
 
