@@ -4,6 +4,7 @@ const theme = {
   colors: {
     textPrimary: '#24292e',
     textSecondary: '#e8eced',
+    textTertiary: '#787878',
     primary: '#0366d6',
     appBar: '#1f272b',
     repositoryBackground: '#cdd3d4'

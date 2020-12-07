@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList, View, StyleSheet, Text } from 'react-native';
+import { FlatList, Text } from 'react-native';
 
+import ItemSeparator from './ItemSeparator';
 import { TouchableRepositoryItem } from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 
@@ -27,13 +28,5 @@ export const RepositoryListContainer = ({ repositories, error }) => {
       />
     );
 };
-
-const ItemSeparator = () => <View style={styles.separator} />;
-
-const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  },
-});
 
 export default RepositoryList;

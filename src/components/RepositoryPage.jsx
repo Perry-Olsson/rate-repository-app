@@ -1,11 +1,15 @@
 import React from 'react';
-import { TouchableHighlight, View, StyleSheet, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { useParams } from 'react-router-native';
 
-import RepositoryItem from './RepositoryItem';
+
 import useRepository from '../hooks/useRepository';
 import Text from '../components/Text';
-import { openLink } from '../utils';
+import RepositoryInfo from './RepositoryInfo';
+import ReviewItem from './ReviewItem';
+import ItemSeparator from './ItemSeparator';
+
+
 
 const RepositoryPage = () => {
   const { id }= useParams();
@@ -15,39 +19,13 @@ const RepositoryPage = () => {
     <Text>loading...</Text>
     : (
       <FlatList
-        data={repository.reviews.edges}
-        renderItem={({ item }) => <Text>{item.node.text}</Text>}
-        keyExtractor={({ id }) => id} 
         ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+        data={repository.reviews.edges}
+        renderItem={({ item }) => <ReviewItem review={item.node} />}
+        ItemSeparatorComponent={ItemSeparator}
+        keyExtractor={({ node }) =>  node.id} 
       />
     );
 };
-
-const RepositoryInfo = ({ repository }) => {
-  const openGitHub = openLink(repository && repository.url);
-  console.log(repository.reviews.edges);
-  return (
-    <View>
-      <RepositoryItem repository={repository} />
-      <TouchableHighlight onPress={openGitHub} style={styles.touchable}>
-        <Text style={styles.text}>Open in Github</Text>
-      </TouchableHighlight>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  touchable: {
-    borderRadius: 4,
-    backgroundColor: '#006cf0',
-    margin: 10,
-  },
-  text: {
-    color: '#ffffff',
-    padding: 10,
-    fontSize: 20,
-    textAlign: 'center',
-  }
-});
 
 export default RepositoryPage;
