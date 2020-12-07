@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
   field: {
     borderColor: '#999999',
   },
+  multiline: {
+    paddingTop: 10,
+  },
   errorField: {
     borderColor: '#d73a4a',
   },
@@ -25,7 +28,11 @@ const FormikTextInput = ({ name, ...props }) => {
   const [field, meta, helpers] = useField(name);
   const showError = meta.touched && meta.error;
 
-  const fieldStyles = [styles.field, showError && styles.errorField];
+  const fieldStyles = [
+    styles.field, 
+    showError && styles.errorField, 
+    props.multiline && styles.multiline
+  ];
 
   return (
     <>
@@ -35,6 +42,9 @@ const FormikTextInput = ({ name, ...props }) => {
         value={field.value}
         error={showError}
         style={fieldStyles}
+        onLayout={(e) => {
+          console.log(e.nativeEvent.layout.height);
+        }}
         {...props}
       />
       <View style={styles.seperator}>

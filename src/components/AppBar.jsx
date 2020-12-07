@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
   const signOut = useSignOut();
-  const query = useQuery(AUTHORIZED_USER, {
+  const authorization = useQuery(AUTHORIZED_USER, {
     fetchPolicy: 'cache-and-network'
   });
 
@@ -29,8 +29,11 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab name="Repositories" path='/' />
-        {!query.loading && 
-        getSignInSignOutTab(query, signOut)}
+        {!authorization.loading && 
+        isSignedIn(authorization) && 
+        <AppBarTab name="Create Review" path='/create-review' />}
+        {!authorization.loading && 
+        getSignInSignOutTab(authorization, signOut)}
       </ScrollView>
     </View>
   );

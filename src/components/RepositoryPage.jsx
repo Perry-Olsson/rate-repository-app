@@ -2,14 +2,11 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { useParams } from 'react-router-native';
 
-
 import useRepository from '../hooks/useRepository';
 import Text from '../components/Text';
 import RepositoryInfo from './RepositoryInfo';
 import ReviewItem from './ReviewItem';
 import ItemSeparator from './ItemSeparator';
-
-
 
 const RepositoryPage = () => {
   const { id }= useParams();

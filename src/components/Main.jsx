@@ -6,6 +6,7 @@ import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 import SignIn from './SignIn';
 import RepositoryPage from './RepositoryPage';
+import CreateReview from './CreateReview';
 
 const Main = () => {
   return (
@@ -17,6 +18,9 @@ const Main = () => {
         </Route>
         <Route path="/repository/:id">
           <RepositoryPage />
+        </Route>
+        <Route path='/create-review'>
+          <CreateReview />
         </Route>
         <Route path="/" exact>
           <RepositoryList />
