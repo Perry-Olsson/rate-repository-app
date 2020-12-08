@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import AuthStorageContext from '../contexts/AuthStorageContext';
 import { useApolloClient } from '@apollo/client';
 
-import AUTHORIZE from '../graphql/mutations';
+import { AUTHORIZE } from '../graphql/mutations';
 
 const useSignIn = () => {
   const [mutate, result] = useMutation(AUTHORIZE);

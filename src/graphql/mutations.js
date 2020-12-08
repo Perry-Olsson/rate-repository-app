@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-const AUTHORIZE = gql`
+export const AUTHORIZE = gql`
   mutation Authorize($credentials: AuthorizeInput) {
     authorize(credentials: $credentials) {
       accessToken
@@ -8,4 +8,11 @@ const AUTHORIZE = gql`
   }
 `;
 
-export default AUTHORIZE;
+export const CREATE_REVIEW = gql`
+  mutation CreateReview($review: CreateReviewInput) {
+    createReview(review: $review){
+      id
+      repositoryId
+    }
+  }
+`;

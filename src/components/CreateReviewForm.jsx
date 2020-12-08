@@ -9,11 +9,11 @@ const CreateReviewForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
       <FormikTextInput 
-        name='owner' 
+        name='ownerName' 
         placeholder='Repository owner name' 
       />
       <FormikTextInput 
-        name='name' 
+        name='repositoryName' 
         placeholder='Repository name' 
       />
       <FormikTextInput 
@@ -21,7 +21,7 @@ const CreateReviewForm = ({ onSubmit }) => {
         placeholder='Rating (0-100)'
       />
       <FormikTextInput
-        name='review'
+        name='text'
         placeholder='Review'
         multiline
       />

@@ -9,7 +9,7 @@ import ReviewItem from './ReviewItem';
 import ItemSeparator from './ItemSeparator';
 
 const RepositoryPage = () => {
-  const { id }= useParams();
+  const { id } = useParams();
   const { repository, loading } = useRepository(id);
 
   return loading ?
