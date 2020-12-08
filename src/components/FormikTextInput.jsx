@@ -42,9 +42,6 @@ const FormikTextInput = ({ name, ...props }) => {
         value={field.value}
         error={showError}
         style={fieldStyles}
-        onLayout={(e) => {
-          console.log(e.nativeEvent.layout.height);
-        }}
         {...props}
       />
       <View style={styles.seperator}>
