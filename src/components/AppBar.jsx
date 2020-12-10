@@ -29,22 +29,25 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab name="Repositories" path='/' />
-        {!authorization.loading && 
-        isSignedIn(authorization) && 
-        <AppBarTab name="Create Review" path='/create-review' />}
-        {!authorization.loading && 
-        getSignInSignOutTab(authorization, signOut)}
+        {!authorization.loading && getAppBarTabs(authorization, signOut)}
       </ScrollView>
     </View>
   );
 };
 
-const getSignInSignOutTab = (query, signOut) => (
-  isSignedIn(query) 
-    ? <AppBarTab name="Sign out" path='/' onPress={signOut} /> 
-    : <AppBarTab name="Sign in" path='/signin' />
-);
-
+const getAppBarTabs = (authorization, signOut) => {
+  return isSignedIn(authorization)
+    ? 
+    <>
+      <AppBarTab name="Create Review" path='/create-review' />
+      <AppBarTab name="Sign out" path='/' onPress={signOut} /> 
+    </>
+    :
+    <>
+      <AppBarTab name="Sign in" path='/signin' />
+      <AppBarTab name="Sign up" path='/signup' />
+    </>;
+};
 
 const isSignedIn = ({ data, error }) => {
   if (error) {
