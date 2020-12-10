@@ -7,6 +7,7 @@ import RepositoryList from './RepositoryList';
 import SignIn from './SignIn';
 import RepositoryPage from './RepositoryPage';
 import CreateReview from './CreateReview';
+import SignUp from './SignUp';
 
 const Main = () => {
   return (
@@ -15,6 +16,9 @@ const Main = () => {
       <Switch>
         <Route path="/signin">
           <SignIn />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
         </Route>
         <Route path="/repository/:id">
           <RepositoryPage />
