@@ -1,12 +1,26 @@
 import React from 'react';
 import { Formik } from 'formik';
+import { useHistory } from 'react-router-native';
 import * as yup from 'yup';
 
 import SignUpForm from './SignUpForm';
+import useCreateUser from '../hooks/useCreateUser';
+import useSignIn from '../hooks/useSignIn';
 
 const SignUp = () => {
-  const onSubmit = (values) => {
-    console.log(values);
+  const [createUser] = useCreateUser();
+  const [signIn] = useSignIn();
+  const history = useHistory();
+
+  const onSubmit = async ({ username, password }, { resetForm }) => {
+    try {
+      await createUser({ username, password });
+      await signIn({ username, password });
+      resetForm();
+      history.push('/');
+    } catch(e) {
+      console.error(e);
+    }
   };
 
   return (
