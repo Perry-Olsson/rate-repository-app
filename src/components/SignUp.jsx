@@ -8,8 +8,8 @@ import useCreateUser from '../hooks/useCreateUser';
 import useSignIn from '../hooks/useSignIn';
 
 const SignUp = () => {
-  const [createUser] = useCreateUser();
-  const [signIn] = useSignIn();
+  const [createUser, createUserResult] = useCreateUser();
+  const [signIn, signInResult] = useSignIn();
   const history = useHistory();
 
   const onSubmit = async ({ username, password }, { resetForm }) => {
@@ -19,7 +19,12 @@ const SignUp = () => {
       resetForm();
       history.push('/');
     } catch(e) {
-      console.error(e);
+      if (createUserResult.error)
+        console.error(createUserResult.error);
+      else if (signInResult.error)
+        console.error(signInResult.error);
+      else
+        console.error(e);
     }
   };
 

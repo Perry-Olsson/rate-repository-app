@@ -10,7 +10,9 @@ import ItemSeparator from './ItemSeparator';
 
 const RepositoryPage = () => {
   const { id } = useParams();
-  const { repository, loading } = useRepository(id);
+  const { repository, loading, error } = useRepository(id);
+  
+  if (error) return <Text>Could not fetch repository</Text>;
 
   return loading ?
     <Text>loading...</Text>
