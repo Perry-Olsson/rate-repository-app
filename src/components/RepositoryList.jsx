@@ -7,7 +7,7 @@ import useRepositories from '../hooks/useRepositories';
 import SortRepositoriesSelector from './SortRepositoriesSelector';
 
 const RepositoryList = () => {
-  const [sortOrder, setSortOrder] = useState({ orderby: "CREATED_AT", orderDirection: "DESC"});
+  const [sortOrder, setSortOrder] = useState({ orderBy: "CREATED_AT", orderDirection: "DESC"});
   const { repositories, error } = useRepositories(sortOrder);
 
   return (
