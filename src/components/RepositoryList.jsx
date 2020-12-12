@@ -27,14 +27,27 @@ export const RepositoryListContainer = ({ repositories, setSortOrder, error }) =
   return error 
     ? <Text>Could not fetch repositories</Text>
     : (
-      <FlatList
-        data={repositoryNodes}
-        ItemSeparatorComponent={ItemSeparator}
-        renderItem={({ item }) => <TouchableRepositoryItem repository={item} />}
-        keyExtractor={(item, index) => index.toString()}
-        ListHeaderComponent={<SortRepositoriesSelector setSortOrder={setSortOrder} />}
-      />
+      <>
+        <FlatList
+          data={repositoryNodes}
+          ItemSeparatorComponent={ItemSeparator}
+          renderItem={({ item, index }) => renderWithSeperatorOnBottom({ item, index, repositoryNodes })}
+          keyExtractor={(item, index) => index.toString()}
+          ListHeaderComponent={<SortRepositoriesSelector setSortOrder={setSortOrder} />}
+        />
+      </>
     );
 };
+
+const renderWithSeperatorOnBottom = ({ item, index, repositoryNodes }) => (
+  index === repositoryNodes.length - 1 
+    ? 
+    <>
+      <TouchableRepositoryItem repository={item} />
+      <ItemSeparator height={20} />
+    </>
+    :
+    <TouchableRepositoryItem repository={item} />
+);
 
 export default RepositoryList;
