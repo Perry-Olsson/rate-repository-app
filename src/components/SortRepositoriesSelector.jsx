@@ -20,8 +20,8 @@ const SortRepositoriesSelector = ({ setSortOrder }) => (
 
 const sortingParams = [
   { label: 'Latest repositories', value: { orderBy: 'CREATED_AT', orderDirection: 'DESC' }},
-  { label: 'Highest rated repositories', value: { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC' }},
-  { label: 'Lowest rated repositories', value: { orderBy: 'RATING_AVERAGE', orderDirection: 'DESC' }}
+  { label: 'Highest rated repositories', value: { orderBy: 'RATING_AVERAGE', orderDirection: 'DESC' }},
+  { label: 'Lowest rated repositories', value: { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC' }}
 ];
 
 const pickerSelectStyles = StyleSheet.create({
