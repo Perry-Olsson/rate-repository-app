@@ -1,25 +1,37 @@
 import React, { useState } from 'react';
 import { FlatList, Text } from 'react-native';
+import { useDebounce } from 'use-debounce';
 
 import ItemSeparator from './ItemSeparator';
 import { TouchableRepositoryItem } from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
-import SortRepositoriesSelector from './SortRepositoriesSelector';
+import RepositoryListHeader from './RepositoryListHeader';
 
 const RepositoryList = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [value] = useDebounce(searchQuery, 500);
   const [sortOrder, setSortOrder] = useState({ orderBy: "CREATED_AT", orderDirection: "DESC"});
-  const { repositories, error } = useRepositories(sortOrder);
+  const { repositories, error } = useRepositories(sortOrder, value);
+  console.log(searchQuery);
 
   return (
     <RepositoryListContainer 
       repositories={repositories}
-      setSortOrder={setSortOrder} 
       error={error} 
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      setSortOrder={setSortOrder} 
     />
   );
 };
 
-export const RepositoryListContainer = ({ repositories, setSortOrder, error }) => {
+export const RepositoryListContainer = ({ 
+  repositories, 
+  error, 
+  searchQuery, 
+  setSearchQuery, 
+  setSortOrder 
+}) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
@@ -33,7 +45,13 @@ export const RepositoryListContainer = ({ repositories, setSortOrder, error }) =
           ItemSeparatorComponent={ItemSeparator}
           renderItem={({ item, index }) => renderWithSeperatorOnBottom({ item, index, repositoryNodes })}
           keyExtractor={(item, index) => index.toString()}
-          ListHeaderComponent={<SortRepositoriesSelector setSortOrder={setSortOrder} />}
+          ListHeaderComponent={
+            <RepositoryListHeader 
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              setSortOrder={setSortOrder} 
+            />
+          }
         />
       </>
     );
