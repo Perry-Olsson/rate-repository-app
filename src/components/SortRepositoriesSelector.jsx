@@ -3,9 +3,11 @@ import { StyleSheet } from 'react-native';
 
 import Dropdown from './Dropdown';
 
-const SortRepositoriesSelector = () => (
+const SortRepositoriesSelector = ({ setSortOrder }) => (
   <Dropdown 
-    items={sortingParams} 
+    handleValueChange={setSortOrder}
+    items={sortingParams}
+    placeholder={{}}
     style={{ 
       ...pickerSelectStyles,
       iconContainer: {
@@ -17,9 +19,9 @@ const SortRepositoriesSelector = () => (
 );
 
 const sortingParams = [
-  { label: 'Latest repositories', value: { orderBy: 'CREATE_AT', orderDirection: 'DESC' }},
-  { label: 'Highest rated repositories', value: { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC' }},
-  { label: 'Lowest rated repositories', value: { orderBy: 'RATING_AVERAGE', orderDirection: 'DESC' }}
+  { label: 'Latest repositories', value: { label: 'Latest repositories', orderBy: 'CREATE_AT', orderDirection: 'DESC' }},
+  { label: 'Highest rated repositories', value: { label: 'Highest rated repositories', orderBy: 'RATING_AVERAGE', orderDirection: 'ASC' }},
+  { label: 'Lowest rated repositories', value: { label: 'Lowest rated repositories', orderBy: 'RATING_AVERAGE', orderDirection: 'DESC' }}
 ];
 
 const pickerSelectStyles = StyleSheet.create({

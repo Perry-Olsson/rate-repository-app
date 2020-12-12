@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, Text } from 'react-native';
 
 import ItemSeparator from './ItemSeparator';
@@ -7,14 +7,19 @@ import useRepositories from '../hooks/useRepositories';
 import SortRepositoriesSelector from './SortRepositoriesSelector';
 
 const RepositoryList = () => {
-  const { repositories, error } = useRepositories();
+  const [sortOrder, setSortOrder] = useState({ orderby: "CREATED_AT", orderDirection: "DESC"});
+  const { repositories, error } = useRepositories(sortOrder);
 
   return (
-    <RepositoryListContainer repositories={repositories} error={error} />
+    <RepositoryListContainer 
+      repositories={repositories}
+      setSortOrder={setSortOrder} 
+      error={error} 
+    />
   );
 };
 
-export const RepositoryListContainer = ({ repositories, error }) => {
+export const RepositoryListContainer = ({ repositories, setSortOrder, error }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
@@ -27,7 +32,7 @@ export const RepositoryListContainer = ({ repositories, error }) => {
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item }) => <TouchableRepositoryItem repository={item} />}
         keyExtractor={(item, index) => index.toString()}
-        ListHeaderComponent={() => <SortRepositoriesSelector />}
+        ListHeaderComponent={<SortRepositoriesSelector setSortOrder={setSortOrder} />}
       />
     );
 };
