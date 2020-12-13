@@ -7,7 +7,7 @@ import Text from './Text';
 const CreateReviewForm = ({ onSubmit }) => {
   const [viewHeight, setViewHeight] = useState(null);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
-  console.log(viewHeight);
+  
   const onLayout = (e) => { setViewHeight(e.nativeEvent.layout.height); };
   const onKeyboardDidShow = (e) => { setKeyboardHeight(e.endCoordinates.height); };
   const onKeyboardDidHide = () => { setKeyboardHeight(0); };

@@ -5,7 +5,7 @@ import { GET_REPOSITORIES } from '../graphql/queries';
 const useRepositories = (variables) => {
   const { data, loading, error, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
     variables: {
-      first: 10,
+      first: 4,
       after: '',
       ...variables
     },
@@ -27,6 +27,7 @@ const useRepositories = (variables) => {
         ...variables,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
+        console.log(fetchMoreResult.repositories.edges.length);
         const nextResult = {
           repositories: {
             ...fetchMoreResult.repositories,
@@ -42,9 +43,7 @@ const useRepositories = (variables) => {
     });
   };
 
-  const repositories = loading || error ? null : data.repositories;
-
-  return { repositories, loading, error, fetchMore: handleFetchMore, ...result };
+  return { repositories: data ? data.repositories : undefined, loading, error, fetchMore: handleFetchMore, ...result };
 };
 
 export default useRepositories;

@@ -11,16 +11,16 @@ const RepositoryList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [value] = useDebounce(searchQuery, 500);
   const [{orderBy, orderDirection}, setSortOrder] = useState({ orderBy: "CREATED_AT", orderDirection: "DESC"});
-  const { repositories, error } = useRepositories({orderBy, orderDirection, value});
+  const { repositories, error, fetchMore } = useRepositories({orderBy, orderDirection, value});
 
   const onEndReach = () => {
-    console.log('You have reached the end of the list');
+    fetchMore();
   };
-
+  
+  if (error) return <Text>Could not fetch repositories</Text>;
   return (
     <RepositoryListContainer 
-      repositories={repositories}
-      error={error} 
+      repositories={repositories} 
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
       setSortOrder={setSortOrder} 
@@ -31,7 +31,6 @@ const RepositoryList = () => {
 
 export const RepositoryListContainer = ({ 
   repositories, 
-  error, 
   searchQuery, 
   setSearchQuery, 
   setSortOrder, 
@@ -41,27 +40,25 @@ export const RepositoryListContainer = ({
     ? repositories.edges.map(edge => edge.node)
     : [];
     
-  return error 
-    ? <Text>Could not fetch repositories</Text>
-    : (
-      <>
-        <FlatList
-          data={repositoryNodes}
-          ItemSeparatorComponent={ItemSeparator}
-          renderItem={({ item, index }) => renderWithSeperatorOnBottom({ item, index, repositoryNodes })}
-          keyExtractor={(item, index) => index.toString()}
-          ListHeaderComponent={
-            <RepositoryListHeader 
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              setSortOrder={setSortOrder} 
-            />
-          }
-          onEndReached={onEndReach}
-          onEndReachedThreshold={0.5}
-        />
-      </>
-    );
+  return (
+    <>
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item, index }) => renderWithSeperatorOnBottom({ item, index, repositoryNodes })}
+        keyExtractor={(item, index) => index.toString()}
+        ListHeaderComponent={
+          <RepositoryListHeader 
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setSortOrder={setSortOrder} 
+          />
+        }
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
+      />
+    </>
+  );
 };
 
 const renderWithSeperatorOnBottom = ({ item, index, repositoryNodes }) => (
