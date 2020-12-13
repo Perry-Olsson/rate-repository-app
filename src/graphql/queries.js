@@ -11,16 +11,36 @@ const REPOSITORY_DETAILS = gql`
     reviewCount
     ratingAverage
     language
+    createdAt
   }
 `;
 
 export const GET_REPOSITORIES = gql`
-  query Repositories($searchKeyword: String, $orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection) {
-    repositories(searchKeyword: $searchKeyword, orderBy: $orderBy, orderDirection: $orderDirection) {
+  query Repositories(
+    $first: Int, 
+    $after: String, 
+    $searchKeyword: String, 
+    $orderBy: AllRepositoriesOrderBy, 
+    $orderDirection: OrderDirection
+  ) {
+    repositories(
+      first: $first, 
+      after: $after, 
+      searchKeyword: $searchKeyword, 
+      orderBy: $orderBy, 
+      orderDirection: $orderDirection
+    ) {
       edges {
         node {
           ...RepositoryDetails
         }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        totalCount
+        hasNextPage
       }
     }
   }

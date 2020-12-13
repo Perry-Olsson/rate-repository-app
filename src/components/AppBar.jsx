@@ -9,16 +9,6 @@ import useSignOut from '../hooks/useSignOut';
 
 import theme from './theme';
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    paddingTop: Constants.statusBarHeight + 6,
-    paddingLeft: 3,
-    paddingRight: 3,
-    backgroundColor: theme.colors.appBar,
-  },
-});
-
 const AppBar = () => {
   const signOut = useSignOut();
   const authorization = useQuery(AUTHORIZED_USER, {
@@ -29,7 +19,7 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab name="Repositories" path='/' />
-        {!authorization.loading && getAppBarTabs(authorization, signOut)}
+        {!authorization.loading && authorization.data && getAppBarTabs(authorization, signOut)}
       </ScrollView>
     </View>
   );
@@ -56,5 +46,15 @@ const isSignedIn = ({ data, error }) => {
   }
   return data.authorizedUser ? true : false;
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    paddingTop: Constants.statusBarHeight + 6,
+    paddingLeft: 3,
+    paddingRight: 3,
+    backgroundColor: theme.colors.appBar,
+  },
+});
 
 export default AppBar;

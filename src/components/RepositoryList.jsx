@@ -10,9 +10,12 @@ import RepositoryListHeader from './RepositoryListHeader';
 const RepositoryList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [value] = useDebounce(searchQuery, 500);
-  const [sortOrder, setSortOrder] = useState({ orderBy: "CREATED_AT", orderDirection: "DESC"});
-  const { repositories, error } = useRepositories(sortOrder, value);
-  console.log(searchQuery);
+  const [{orderBy, orderDirection}, setSortOrder] = useState({ orderBy: "CREATED_AT", orderDirection: "DESC"});
+  const { repositories, error } = useRepositories({orderBy, orderDirection, value});
+
+  const onEndReach = () => {
+    console.log('You have reached the end of the list');
+  };
 
   return (
     <RepositoryListContainer 
@@ -21,6 +24,7 @@ const RepositoryList = () => {
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
       setSortOrder={setSortOrder} 
+      onEndReach={onEndReach}
     />
   );
 };
@@ -30,7 +34,8 @@ export const RepositoryListContainer = ({
   error, 
   searchQuery, 
   setSearchQuery, 
-  setSortOrder 
+  setSortOrder, 
+  onEndReach
 }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -52,6 +57,8 @@ export const RepositoryListContainer = ({
               setSortOrder={setSortOrder} 
             />
           }
+          onEndReached={onEndReach}
+          onEndReachedThreshold={0.5}
         />
       </>
     );
