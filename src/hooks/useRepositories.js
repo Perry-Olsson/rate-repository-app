@@ -27,7 +27,6 @@ const useRepositories = (variables) => {
         ...variables,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
-        console.log(fetchMoreResult.repositories.edges.length);
         const nextResult = {
           repositories: {
             ...fetchMoreResult.repositories,

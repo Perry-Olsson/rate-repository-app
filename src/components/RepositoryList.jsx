@@ -6,30 +6,37 @@ import ItemSeparator from './ItemSeparator';
 import { TouchableRepositoryItem } from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 import RepositoryListHeader from './RepositoryListHeader';
+import Loading from './Loading';
 
 const RepositoryList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [value] = useDebounce(searchQuery, 500);
   const [{orderBy, orderDirection}, setSortOrder] = useState({ orderBy: "CREATED_AT", orderDirection: "DESC"});
-  const { repositories, error, fetchMore } = useRepositories({orderBy, orderDirection, value});
+  const { repositories, loading, error, fetchMore } = useRepositories({orderBy, orderDirection, value});
 
   const onEndReach = () => {
     fetchMore();
   };
-  
+
   if (error) return <Text>Could not fetch repositories</Text>;
   return (
-    <RepositoryListContainer 
-      repositories={repositories} 
-      searchQuery={searchQuery}
-      setSearchQuery={setSearchQuery}
-      setSortOrder={setSortOrder} 
-      onEndReach={onEndReach}
-    />
+    <>
+      <RepositoryListContainer 
+        loading={loading}
+        error={error}
+        repositories={repositories} 
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setSortOrder={setSortOrder} 
+        onEndReach={onEndReach}
+      />
+    </>
   );
 };
 
 export const RepositoryListContainer = ({ 
+  loading,
+  error,
   repositories, 
   searchQuery, 
   setSearchQuery, 
@@ -54,6 +61,7 @@ export const RepositoryListContainer = ({
             setSortOrder={setSortOrder} 
           />
         }
+        ListFooterComponent={ <Loading loading={loading} error={error} />}
         onEndReached={onEndReach}
         onEndReachedThreshold={0.5}
       />
