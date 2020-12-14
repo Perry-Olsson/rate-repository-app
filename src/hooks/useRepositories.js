@@ -4,11 +4,7 @@ import { GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = (variables) => {
   const { data, loading, error, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
-    variables: {
-      first: 4,
-      after: '',
-      ...variables
-    },
+    variables,
     fetchPolicy: 'cache-and-network'
   });
 
@@ -23,8 +19,8 @@ const useRepositories = (variables) => {
     fetchMore({
       query: GET_REPOSITORIES,
       variables: {
-        after: data.repositories.pageInfo.endCursor,
         ...variables,
+        after: data.repositories.pageInfo.endCursor,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         const nextResult = {

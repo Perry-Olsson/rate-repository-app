@@ -3,11 +3,12 @@ import { StyleSheet } from 'react-native';
 
 import Dropdown from './Dropdown';
 
-const SortRepositoriesSelector = ({ setSortOrder }) => (
+const SortRepositoriesSelector = ({ sortOrder, setSortOrder }) => (
   <Dropdown 
     handleValueChange={setSortOrder}
     items={sortingParams}
     placeholder={{}}
+    value={sortOrder}
     style={{ 
       ...pickerSelectStyles,
       iconContainer: {

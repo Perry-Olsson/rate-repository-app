@@ -8,8 +8,11 @@ import SignIn from './SignIn';
 import RepositoryPage from './RepositoryPage';
 import CreateReview from './CreateReview';
 import SignUp from './SignUp';
+import useRepositoriesState from '../hooks/useRepositoriesState';
 
 const Main = () => {
+  const repositoriesState = useRepositoriesState();
+
   return (
     <View style={styles.container}>
       <AppBar />
@@ -27,7 +30,7 @@ const Main = () => {
           <CreateReview />
         </Route>
         <Route path="/" exact>
-          <RepositoryList />
+          <RepositoryList state={repositoriesState} />
         </Route>
         <Redirect to="/" />
       </Switch>

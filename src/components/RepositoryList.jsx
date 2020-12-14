@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-import { FlatList, Text } from 'react-native';
-import { useDebounce } from 'use-debounce';
+import React from 'react';
+import { FlatList } from 'react-native';
 
 import ItemSeparator from './ItemSeparator';
 import { TouchableRepositoryItem } from './RepositoryItem';
-import useRepositories from '../hooks/useRepositories';
 import RepositoryListHeader from './RepositoryListHeader';
 import Loading from './Loading';
 
-const RepositoryList = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [value] = useDebounce(searchQuery, 500);
-  const [{orderBy, orderDirection}, setSortOrder] = useState({ orderBy: "CREATED_AT", orderDirection: "DESC"});
-  const { repositories, loading, error, fetchMore } = useRepositories({orderBy, orderDirection, value});
+const RepositoryList = ({ state }) => {
+  const { 
+    searchQuery, 
+    setSearchQuery,  
+    sortOrder,
+    setSortOrder, 
+    repositories, 
+    loading, 
+    error, 
+    fetchMore 
+  } = state;
 
-  const onEndReach = () => {
-    fetchMore();
-  };
+  const onEndReach = () => { fetchMore(); };
 
-  if (error) return <Text>Could not fetch repositories</Text>;
   return (
     <>
       <RepositoryListContainer 
@@ -27,6 +28,7 @@ const RepositoryList = () => {
         repositories={repositories} 
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        sortOrder={sortOrder}
         setSortOrder={setSortOrder} 
         onEndReach={onEndReach}
       />
@@ -40,6 +42,7 @@ export const RepositoryListContainer = ({
   repositories, 
   searchQuery, 
   setSearchQuery, 
+  sortOrder,
   setSortOrder, 
   onEndReach
 }) => {
@@ -58,6 +61,7 @@ export const RepositoryListContainer = ({
           <RepositoryListHeader 
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
+            sortOrder={sortOrder}
             setSortOrder={setSortOrder} 
           />
         }
