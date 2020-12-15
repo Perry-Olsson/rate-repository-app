@@ -10,7 +10,7 @@ import ItemSeparator from './ItemSeparator';
 
 const RepositoryInfo = ({ repository }) => {
   const openGitHub = openLink(repository && repository.url);
-  return (
+  return repository ? (
     <>
       <View style={styles.container}>
         <RepositoryItem repository={repository} />
@@ -20,7 +20,7 @@ const RepositoryInfo = ({ repository }) => {
       </View>
       <ItemSeparator />
     </>
-  );
+  ) : null;
 };
 
 const styles = StyleSheet.create({
