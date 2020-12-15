@@ -8,18 +8,10 @@ import Loading from './Loading';
 
 const RepositoryList = ({ state }) => {
   const { 
-    searchQuery, 
-    setSearchQuery,  
-    sortOrder,
-    setSortOrder, 
     scrollPosition,
     setScrollPosition,
-    scrollIndex,
-    setScrollIndex,
-    repositories, 
-    loading, 
-    error, 
     fetchMore, 
+    ...rest
   } = state;
   const [firstRender, setFirstRender] = useState(true);
 
@@ -37,18 +29,10 @@ const RepositoryList = ({ state }) => {
   return (
     <>
       <RepositoryListContainer 
-        loading={loading}
-        error={error}
-        repositories={repositories} 
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder} 
         scrollPosition={scrollPosition}
-        scrollIndex={scrollIndex}
-        setScrollIndex={setScrollIndex}
         onScroll={onScroll}
         onEndReach={onEndReach}
+        {...rest}
       />
     </>
   );
@@ -75,21 +59,24 @@ export const RepositoryListContainer = ({
   const scrollPositionRef = useRef(scrollPosition);
   scrollPositionRef.current = scrollPosition;
 
+
   useEffect(() => {
-    return () => { setScrollIndex(Math.ceil((scrollPositionRef.current - 125) / 160)); };
+    return () => { setScrollIndex(getScrollIndex(scrollPositionRef.current)); };
   }, []);
+
+  const scrollToLastPosition = () => {
+    setTimeout(() => {
+      scrollRef.current.scrollToOffset({
+        offset: scrollPosition,
+        animated: false,
+      }, 0);
+    });
+  };
     
   return (
     <>
       <FlatList
-        onLayout={() => { 
-          setTimeout(() => {
-            scrollRef.current.scrollToOffset({
-              offset: scrollPosition,
-              animated: false,
-            });
-          }, 0);
-        }}
+        onLayout={scrollToLastPosition}
         ref={scrollRef}
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
@@ -113,6 +100,8 @@ export const RepositoryListContainer = ({
     </>
   );
 };
+
+const getScrollIndex = (position) => Math.floor((position - 125) / 160);
 
 const renderWithSeperatorOnBottom = ({ item, index, repositoryNodes }) => (
   index === repositoryNodes.length - 1 
