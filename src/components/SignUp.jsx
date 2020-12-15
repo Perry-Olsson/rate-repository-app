@@ -6,10 +6,12 @@ import * as yup from 'yup';
 import SignUpForm from './SignUpForm';
 import useCreateUser from '../hooks/useCreateUser';
 import useSignIn from '../hooks/useSignIn';
+import { useResetters } from '../contexts/ResetStateProvider';
 
 const SignUp = () => {
   const [createUser, createUserResult] = useCreateUser();
   const [signIn, signInResult] = useSignIn();
+  const { resetRepositoriesState } = useResetters();
   const history = useHistory();
 
   const onSubmit = async ({ username, password }, { resetForm }) => {
@@ -17,6 +19,7 @@ const SignUp = () => {
       await createUser({ username, password });
       await signIn({ username, password });
       resetForm();
+      resetRepositoriesState();
       history.push('/');
     } catch(e) {
       if (createUserResult.error)

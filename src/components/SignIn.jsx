@@ -5,9 +5,11 @@ import { useHistory } from 'react-router-native';
 
 import SignInForm from './SignInForm';
 import useSignIn from '../hooks/useSignIn';
+import { useResetters } from '../contexts/ResetStateProvider';
 
 const SignIn = () => { 
   const [signIn] = useSignIn();
+  const { resetRepositoriesState } = useResetters();
   const history = useHistory();
 
   const onSubmit = async (values, { resetForm }) => {
@@ -16,6 +18,7 @@ const SignIn = () => {
     try {
       await signIn({ username, password });
       resetForm();
+      resetRepositoriesState();
       history.push('/');
     } catch(e) {
       console.log(e);

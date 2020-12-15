@@ -59,9 +59,8 @@ export const RepositoryListContainer = ({
   const scrollPositionRef = useRef(scrollPosition);
   scrollPositionRef.current = scrollPosition;
 
-
   useEffect(() => {
-    return () => { setScrollIndex(getScrollIndex(scrollPositionRef.current)); };
+    return () => setScrollIndex(getScrollIndex(scrollPositionRef.current)); 
   }, []);
 
   const scrollToLastPosition = () => {
@@ -90,7 +89,7 @@ export const RepositoryListContainer = ({
             setSortOrder={setSortOrder} 
           />
         }
-        ListFooterComponent={ <Loading loading={loading} error={error} />}
+        ListFooterComponent={<Loading loading={loading} error={error} />}
         onScroll={onScroll}
         onEndReached={onEndReach}
         onEndReachedThreshold={0.5}

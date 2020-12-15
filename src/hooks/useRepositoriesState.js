@@ -20,6 +20,16 @@ const useRepositoriesState = () => {
   });
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollIndex, setScrollIndex] = useState(0);
+  
+  const resetRepositoriesState = () => {
+    setSearchQuery('');
+    setSortOrder({ 
+      orderBy: "CREATED_AT", 
+      orderDirection: "DESC"
+    });
+    setScrollPosition(0);
+    setScrollIndex(0);
+  };
 
   return {
     searchQuery,
@@ -34,6 +44,7 @@ const useRepositoriesState = () => {
     loading, 
     error,
     fetchMore,
+    resetRepositoriesState
   };
 };
 

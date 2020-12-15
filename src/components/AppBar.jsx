@@ -6,11 +6,13 @@ import Constants from 'expo-constants';
 import AppBarTab from './AppBarTab';
 import { AUTHORIZED_USER } from '../graphql/queries';
 import useSignOut from '../hooks/useSignOut';
+import { useResetters } from '../contexts/ResetStateProvider';
 
 import theme from './theme';
 
 const AppBar = () => {
-  const signOut = useSignOut();
+  const { resetRepositoriesState } = useResetters();
+  const signOut = useSignOut(resetRepositoriesState);
   const authorization = useQuery(AUTHORIZED_USER, {
     fetchPolicy: 'cache-and-network'
   });
