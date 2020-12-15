@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { FlatList } from 'react-native';
 
 import ItemSeparator from './ItemSeparator';
@@ -12,12 +12,17 @@ const RepositoryList = ({ state }) => {
     setSearchQuery,  
     sortOrder,
     setSortOrder, 
+    scrollPosition,
+    setScrollPosition,
+    scrollIndex,
+    setScrollIndex,
     repositories, 
     loading, 
     error, 
     fetchMore 
   } = state;
 
+  const onScroll = (event) => { setScrollPosition(event.nativeEvent.contentOffset.y);};
   const onEndReach = () => { fetchMore(); };
 
   return (
@@ -30,6 +35,10 @@ const RepositoryList = ({ state }) => {
         setSearchQuery={setSearchQuery}
         sortOrder={sortOrder}
         setSortOrder={setSortOrder} 
+        scrollPosition={scrollPosition}
+        scrollIndex={scrollIndex}
+        setScrollIndex={setScrollIndex}
+        onScroll={onScroll}
         onEndReach={onEndReach}
       />
     </>
@@ -44,15 +53,31 @@ export const RepositoryListContainer = ({
   setSearchQuery, 
   sortOrder,
   setSortOrder, 
+  scrollPosition,
+  scrollIndex,
+  setScrollIndex,
+  onScroll,
   onEndReach
 }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
+  const scrollRef = useRef();
+  const scrollPositionRef = useRef(scrollPosition);
+  scrollPositionRef.current = scrollPosition;
+
+  useEffect(() => {
+    // scrollRef.current.scrollToOffset({
+    //   offset: scrollPosition,
+    //   animated: false,
+    // });
+    return () => { setScrollIndex(Math.ceil((scrollPositionRef.current - 125) / 160)); };
+  }, []);
     
   return (
     <>
       <FlatList
+        ref={scrollRef}
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item, index }) => renderWithSeperatorOnBottom({ item, index, repositoryNodes })}
@@ -66,8 +91,11 @@ export const RepositoryListContainer = ({
           />
         }
         ListFooterComponent={ <Loading loading={loading} error={error} />}
+        onScroll={onScroll}
         onEndReached={onEndReach}
         onEndReachedThreshold={0.5}
+        getItemLayout={(data, index) => ({ length: 160, offset: 125 + 160 * index, index})}
+        initialScrollIndex={scrollIndex}
       />
     </>
   );

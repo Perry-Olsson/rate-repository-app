@@ -12,18 +12,24 @@ const useRepositoriesState = () => {
   });
   const { orderBy, orderDirection } = sortOrder;
   const { repositories, loading, error, fetchMore } = useRepositories({ 
-    first: 4, 
+    first: 10, 
     after: '', 
     orderBy, 
     orderDirection, 
     searchKeyword
   });
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrollIndex, setScrollIndex] = useState(0);
 
   return {
     searchQuery,
     setSearchQuery,
     sortOrder,
     setSortOrder,
+    scrollPosition,
+    setScrollPosition,
+    scrollIndex,
+    setScrollIndex,
     repositories,
     loading, 
     error,

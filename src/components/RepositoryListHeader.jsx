@@ -5,7 +5,7 @@ import { Searchbar } from 'react-native-paper';
 import SortRepositoriesSelector from './SortRepositoriesSelector';
 
 const RepositoryListHeader = ({ searchQuery, setSearchQuery, sortOrder, setSortOrder }) => (
-  <View>
+  <View style={{ justifyContent: 'center', height: 125}}>
     <Searchbar
       placeholder='Search'
       onChangeText={query => setSearchQuery(query)}
@@ -18,9 +18,7 @@ const RepositoryListHeader = ({ searchQuery, setSearchQuery, sortOrder, setSortO
 
 const styles = StyleSheet.create({
   searchBar: {
-    marginLeft: 10,
-    marginTop: 10,
-    marginRight: 10,
+    margin: 8
   }
 });
 
