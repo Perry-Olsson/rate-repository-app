@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FlatList } from 'react-native';
 
 import ItemSeparator from './ItemSeparator';
@@ -19,10 +19,19 @@ const RepositoryList = ({ state }) => {
     repositories, 
     loading, 
     error, 
-    fetchMore 
+    fetchMore, 
   } = state;
+  const [firstRender, setFirstRender] = useState(true);
 
-  const onScroll = (event) => { setScrollPosition(event.nativeEvent.contentOffset.y);};
+  const onScroll = (event) => { 
+    if (firstRender){
+      //So initialScrollIndex doesnt set scroll position
+      setScrollPosition((scrollPosition) => scrollPosition);
+      setFirstRender(false);
+    } else
+      setScrollPosition(event.nativeEvent.contentOffset.y);
+  };
+
   const onEndReach = () => { fetchMore(); };
 
   return (
@@ -67,16 +76,20 @@ export const RepositoryListContainer = ({
   scrollPositionRef.current = scrollPosition;
 
   useEffect(() => {
-    // scrollRef.current.scrollToOffset({
-    //   offset: scrollPosition,
-    //   animated: false,
-    // });
     return () => { setScrollIndex(Math.ceil((scrollPositionRef.current - 125) / 160)); };
   }, []);
     
   return (
     <>
       <FlatList
+        onLayout={() => { 
+          setTimeout(() => {
+            scrollRef.current.scrollToOffset({
+              offset: scrollPosition,
+              animated: false,
+            });
+          }, 0);
+        }}
         ref={scrollRef}
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}

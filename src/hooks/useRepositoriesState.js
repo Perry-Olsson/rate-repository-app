@@ -33,7 +33,7 @@ const useRepositoriesState = () => {
     repositories,
     loading, 
     error,
-    fetchMore
+    fetchMore,
   };
 };
 
