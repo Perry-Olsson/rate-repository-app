@@ -52,7 +52,7 @@ export const TouchableRepositoryItem = ({ repository }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 150,
+    height: 160,
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: theme.colors.repositoryBackground,

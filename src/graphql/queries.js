@@ -92,6 +92,13 @@ export const AUTHORIZED_USER = gql`
       username
       reviews @include(if: $includeReviews) {
         ...REVIEWS
+        edges {
+          node {
+            repository {
+              fullName
+            }
+          }
+        }
       }
     }
   }

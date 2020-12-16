@@ -68,10 +68,10 @@ export const RepositoryListContainer = ({
       scrollRef.current.scrollToOffset({
         offset: scrollPosition,
         animated: false,
-      }, 0);
-    });
+      });
+    }, 1);
   };
-    
+  
   return (
     <>
       <FlatList
@@ -93,7 +93,7 @@ export const RepositoryListContainer = ({
         onScroll={onScroll}
         onEndReached={onEndReach}
         onEndReachedThreshold={0.5}
-        getItemLayout={(data, index) => ({ length: 160, offset: 125 + 160 * index, index})}
+        getItemLayout={(data, index) => ({ length: 170, offset: 125 + 170 * index, index})}
         initialScrollIndex={scrollIndex}
       />
     </>

@@ -1,11 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { format, parseISO } from 'date-fns';
+import { useLocation } from 'react-router-native';
 
 import Text from './Text';
 import theme from './theme';
 
 const ReviewItem = ({ review }) => {
+  const { pathname } = useLocation();
+  const header = pathname === '/my-reviews' ? review.repository.fullName : review.user.username;
+  
   return (
     <View style={styles.container}>
       <View style={styles.ratingContainer}>
@@ -14,7 +18,7 @@ const ReviewItem = ({ review }) => {
         </View>
       </View>
       <View style={styles.textContainer}>
-        <Text fontWeight='bold'>{review.user.username}</Text>
+        <Text fontWeight='bold'>{header}</Text>
         <Text style={styles.date}>{format(parseISO(review.createdAt), 'MM/dd/yyyy')}</Text>
         <Text>{review.text}</Text>
       </View>
