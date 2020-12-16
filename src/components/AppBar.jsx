@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import Constants from 'expo-constants';
 
 import AppBarTab from './AppBarTab';
-import { AUTHORIZED_USER } from '../graphql/queries';
+import useAuthorizedUser from '../hooks/useAuthorizedUser';
 import useSignOut from '../hooks/useSignOut';
 import { useResetters } from '../contexts/ResetStateProvider';
 
@@ -13,25 +13,24 @@ import theme from './theme';
 const AppBar = () => {
   const { resetRepositoriesState } = useResetters();
   const signOut = useSignOut(resetRepositoriesState);
-  const authorization = useQuery(AUTHORIZED_USER, {
-    fetchPolicy: 'cache-and-network'
-  });
+  const { authorizedUser, loading, error } = useAuthorizedUser();
 
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab name="Repositories" path='/' />
-        {!authorization.loading && authorization.data && getAppBarTabs(authorization, signOut)}
+        {!loading && !error && authorizedUser !== undefined && getAppBarTabs(authorizedUser, signOut)}
       </ScrollView>
     </View>
   );
 };
 
-const getAppBarTabs = (authorization, signOut) => {
-  return isSignedIn(authorization)
+const getAppBarTabs = (authorizedUser, signOut) => {
+  return isSignedIn(authorizedUser)
     ? 
     <>
-      <AppBarTab name="Create Review" path='/create-review' />
+      <AppBarTab name="Create review" path='/create-review' />
+      <AppBarTab name="My reviews" path='/my-reviews' />
       <AppBarTab name="Sign out" path='/' onPress={signOut} /> 
     </>
     :
@@ -41,12 +40,8 @@ const getAppBarTabs = (authorization, signOut) => {
     </>;
 };
 
-const isSignedIn = ({ data, error }) => {
-  if (error) {
-    console.log(error); 
-    return false;
-  }
-  return data.authorizedUser ? true : false;
+const isSignedIn = (authorizedUser) => {
+  return authorizedUser ? true : false;
 };
 
 const styles = StyleSheet.create({

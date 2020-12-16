@@ -10,6 +10,7 @@ import CreateReview from './CreateReview';
 import SignUp from './SignUp';
 import useRepositoriesState from '../hooks/useRepositoriesState';
 import ResetStateProvider from '../contexts/ResetStateProvider';
+import MyReviewsPage from './MyReviewsPage';
 
 const Main = () => {
   const repositoriesState = useRepositoriesState();
@@ -31,6 +32,9 @@ const Main = () => {
           </Route>
           <Route path='/create-review'>
             <CreateReview />
+          </Route>
+          <Route path='/my-reviews'>
+            <MyReviewsPage />
           </Route>
           <Route path="/" exact>
             <RepositoryList state={repositoriesState} />
