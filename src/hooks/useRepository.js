@@ -24,15 +24,13 @@ const useRepository = (variables) => {
       updateQuery: (previousResult, { fetchMoreResult }) => {
         const nextResult = {
           repository: {
-            ...previousResult.repository,
+            ...fetchMoreResult.repository,
             reviews: {
+              ...fetchMoreResult.repository.reviews,
               edges: [
                 ...previousResult.repository.reviews.edges,
                 ...fetchMoreResult.repository.reviews.edges
               ],
-              pageInfo: {
-                ...fetchMoreResult.repository.reviews.pageInfo
-              }
             }
           }
         };

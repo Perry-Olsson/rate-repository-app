@@ -3,7 +3,6 @@ import { FlatList } from 'react-native';
 import { useParams } from 'react-router-native';
 
 import useRepository from '../hooks/useRepository';
-import Text from '../components/Text';
 import RepositoryInfo from './RepositoryInfo';
 import ReviewItem from './ReviewItem';
 import ItemSeparator from './ItemSeparator';
@@ -11,7 +10,7 @@ import Loading from './Loading';
 
 const RepositoryPage = () => {
   const { id } = useParams();
-  const { repository, loading, error, fetchMore } = useRepository({ id, first: 3, after: ''});
+  const { repository, loading, error, fetchMore } = useRepository({ id, first: 8, after: ''});
 
   const onEndReach = () => {
     fetchMore();
