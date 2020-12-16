@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
-import { useQuery } from '@apollo/react-hooks';
 import Constants from 'expo-constants';
 
 import AppBarTab from './AppBarTab';
@@ -19,14 +18,14 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab name="Repositories" path='/' />
-        {!loading && !error && authorizedUser !== undefined && getAppBarTabs(authorizedUser, signOut)}
+        {!loading && !error && getAppBarTabs(authorizedUser, signOut)}
       </ScrollView>
     </View>
   );
 };
 
-const getAppBarTabs = (authorizedUser, signOut) => {
-  return isSignedIn(authorizedUser)
+const getAppBarTabs = (user, signOut) => {
+  return isAuthorized(user)
     ? 
     <>
       <AppBarTab name="Create review" path='/create-review' />
@@ -40,9 +39,7 @@ const getAppBarTabs = (authorizedUser, signOut) => {
     </>;
 };
 
-const isSignedIn = (authorizedUser) => {
-  return authorizedUser ? true : false;
-};
+const isAuthorized = authorizedUser =>  authorizedUser ? true : false;
 
 const styles = StyleSheet.create({
   container: {

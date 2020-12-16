@@ -89,7 +89,7 @@ export const RepositoryListContainer = ({
             setSortOrder={setSortOrder} 
           />
         }
-        ListFooterComponent={<Loading loading={loading} error={error} />}
+        ListFooterComponent={<Loading loading={loading} error={error} errorMessage={errorMessage} />}
         onScroll={onScroll}
         onEndReached={onEndReach}
         onEndReachedThreshold={0.5}
@@ -101,6 +101,7 @@ export const RepositoryListContainer = ({
 };
 
 const getScrollIndex = (position) => Math.floor((position - 125) / 160);
+const errorMessage = 'Could not fetch repositories';
 
 const renderWithSeperatorOnBottom = ({ item, index, repositoryNodes }) => (
   index === repositoryNodes.length - 1 

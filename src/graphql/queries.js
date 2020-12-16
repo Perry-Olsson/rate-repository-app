@@ -15,6 +15,30 @@ const REPOSITORY_DETAILS = gql`
   }
 `;
 
+const REVIEWS = gql`
+  fragment REVIEWS on ReviewConnection {
+    edges {
+      node {
+        id
+        text
+        rating
+        createdAt
+        repositoryId
+        user {
+          id
+          username
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      totalCount
+      hasNextPage
+    }
+  }`;
+
 export const GET_REPOSITORIES = gql`
   query Repositories(
     $first: Int, 
@@ -53,37 +77,23 @@ export const GET_REPOSITORY = gql`
       url
       ...RepositoryDetails
       reviews(first: $first, after: $after) {
-        edges {
-          node {
-            id
-            text
-            rating
-            createdAt
-            repositoryId
-            user {
-              id
-              username
-            }
-          }
-          cursor
-        }
-        pageInfo {
-          startCursor
-          endCursor
-          totalCount
-          hasNextPage
-        }
+        ...REVIEWS
       }
     }
   }
   ${REPOSITORY_DETAILS}
+  ${REVIEWS}
 `;
 
 export const AUTHORIZED_USER = gql`
-  query {
+  query AuthorizedUser($includeReviews: Boolean = false) {
     authorizedUser {
       id
       username
+      reviews @include(if: $includeReviews) {
+        ...REVIEWS
+      }
     }
   }
+  ${REVIEWS}
 `;

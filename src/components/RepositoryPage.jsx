@@ -26,12 +26,14 @@ const RepositoryPage = () => {
       data={reviewNodes}
       renderItem={({ item }) => <ReviewItem review={item.node} />}
       ItemSeparatorComponent={ItemSeparator}
-      ListFooterComponent={<Loading loading={loading} error={error} />}
+      ListFooterComponent={<Loading loading={loading} error={error} errorMessage={errorMessage} />}
       keyExtractor={({ node }) =>  node.id} 
       onEndReached={onEndReach}
       onEndReachedThreshold={0.5}
     />
   );
 };
+
+const errorMessage = 'Could not fetch reviews';
 
 export default RepositoryPage;

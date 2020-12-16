@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 
 import Text from './Text';
 
-const Loading = ({ loading, error }) => {
-  if (error) return <Text style={styles.text}>Could not fetch repositories</Text>;
+const Loading = ({ loading, error, errorMessage}) => {
+  if (error) return <Text style={styles.text}>{errorMessage}</Text>;
   return loading 
     ? <Text style={styles.text}>Loading...</Text> 
     : null;
