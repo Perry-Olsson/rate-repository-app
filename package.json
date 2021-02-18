@@ -5,7 +5,8 @@
   "scripts": {
     "start:server": "cd ./Api && yarn start",
     "start:client": "cd ./Client && yarn start",
-    "start": "(cd ./Client && yarn start) & (cd ./Api && yarn start)"
+    "start": "(cd ./Client && yarn start) & (cd ./Api && yarn start)",
+    "install": "(cd ./Api && yarn) && (cd ./Client && yarn)"
   },
   "repository": "git@github.com:Perry-Olsson/rate-repository-app.git",
   "author": "Perry Olsson <olsson.perry@gmail.com>",
